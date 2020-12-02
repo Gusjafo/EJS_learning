@@ -1,0 +1,15 @@
+[1mdiff --git a/app.js b/app.js[m
+[1mindex b83d4c5..f887358 100644[m
+[1m--- a/app.js[m
+[1m+++ b/app.js[m
+[36m@@ -4,6 +4,10 @@[m [mconst bodyparser = require('body-parser');[m
+ const app = express();[m
+ [m
+ app.get.('/', function(req, res){[m
+[32m+[m
+[32m+[m[32m  var today = new Date();[m
+[32m+[m[32m  var currentDay = today.getDay();[m
+[32m+[m[32m  console.log(currentDay);[m
+   res.send('Hello World');[m
+ });[m
+ [m
