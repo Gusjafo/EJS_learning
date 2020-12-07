@@ -4,6 +4,11 @@ const bodyparser = require('body-parser');
 const app = express();
 let tasks = ["asleep", "take a breakfast", "study web development"];
 
+app.use(express.static('public'));
+app.use(bodyparser.urlencoded({
+  extended: true
+}));
+
 app.set('view engine', 'ejs');
 app.use(bodyparser.urlencoded({
   extended: true
@@ -24,6 +29,7 @@ app.get('/', function(req, res) {
   res.render('lists', {
     kindOfDay: day,
     newListTask: tasks
+
   });
 
 });
@@ -36,5 +42,6 @@ app.post('/', function(req, res) {
 })
 
 app.listen(3000, function() {
+
   console.log("Server is running on port 3000");
 });
