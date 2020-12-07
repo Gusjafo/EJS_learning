@@ -2,6 +2,7 @@ const express = require('express');
 const bodyparser = require('body-parser');
 
 const app = express();
+let tasks = ["asleep", "take a breakfast", "study web development"];
 
 app.use(express.static('public'));
 app.use(bodyparser.urlencoded({
@@ -9,33 +10,38 @@ app.use(bodyparser.urlencoded({
 }));
 
 app.set('view engine', 'ejs');
+app.use(bodyparser.urlencoded({
+  extended: true
+}));
 
 app.get('/', function(req, res) {
 
-  var today = new Date();
+  let today = new Date();
 
-  var options = {
+  let options = {
     weekday: "long",
     day: "numeric",
-    month: "long",
-    year: "numeric",
-    hour: "numeric",
-    minute: "numeric"
+    month: "long"
   };
 
-
-  var day = today.toLocaleDateString("es-LA", options);
+  let day = today.toLocaleDateString("es-LA", options);
 
   res.render('lists', {
-    kindOfDay: day
+    kindOfDay: day,
+    newListTask: tasks
+
   });
+
 });
 
-app.post('/', function(req, res){
-  var task = req.body.newTask;
-  console.log(task);
+app.post('/', function(req, res) {
+  task = req.body.newTask;
+  tasks.push(task);
+
+  res.redirect("/");
 })
 
-app.listen(3000, function(){
+app.listen(3000, function() {
+
   console.log("Server is running on port 3000");
 });
